@@ -1,4 +1,4 @@
-# xdp-udp-server
+# xdp-echo-server
 
 ## Prerequisites
 
@@ -25,16 +25,16 @@ program.
 Cross compilation should work on both Intel and Apple Silicon Macs.
 
 ```shell
-CC=${ARCH}-linux-musl-gcc cargo build --package xdp-udp-server --release \
+CC=${ARCH}-linux-musl-gcc cargo build --package xdp-echo-server --release \
   --target=${ARCH}-unknown-linux-musl \
   --config=target.${ARCH}-unknown-linux-musl.linker=\"${ARCH}-linux-musl-gcc\"
 ```
-The cross-compiled program `target/${ARCH}-unknown-linux-musl/release/xdp-udp-server` can be
+The cross-compiled program `target/${ARCH}-unknown-linux-musl/release/xdp-echo-server` can be
 copied to a Linux server or VM and run there.
 
 ## License
 
-With the exception of eBPF code, xdp-udp-server is distributed under the terms
+With the exception of eBPF code, xdp-echo-server is distributed under the terms
 of either the [MIT license] or the [Apache License] (version 2.0), at your
 option.
 

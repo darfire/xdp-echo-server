@@ -34,7 +34,7 @@ async fn main() -> anyhow::Result<()> {
     // reach for `Bpf::load_file` instead.
     let mut ebpf = aya::Ebpf::load(aya::include_bytes_aligned!(concat!(
         env!("OUT_DIR"),
-        "/xdp-udp-server"
+        "/xdp-echo-server"
     )))?;
     match aya_log::EbpfLogger::init(&mut ebpf) {
         Err(e) => {
@@ -54,7 +54,7 @@ async fn main() -> anyhow::Result<()> {
         }
     }
     let Opt { iface } = opt;
-    let program: &mut Xdp = ebpf.program_mut("xdp_udp_server").unwrap().try_into()?;
+    let program: &mut Xdp = ebpf.program_mut("xdp_echo_server").unwrap().try_into()?;
     program.load()?;
     program.attach(&iface, XdpFlags::default())
         .context("failed to attach the XDP program with default flags - try changing XdpFlags::default() to XdpFlags::SKB_MODE")?;

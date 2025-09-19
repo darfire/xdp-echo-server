@@ -1,12 +1,12 @@
 [package]
-name = "xdp-udp-server"
+name = "xdp-echo-server"
 version = "0.1.0"
 edition.workspace = true
 
 license.workspace = true
 
 [dependencies]
-xdp-udp-server-common = { path = "../xdp-udp-server-common", features = ["user"] }
+xdp-echo-server-common = { path = "../xdp-echo-server-common", features = ["user"] }
 
 anyhow = { workspace = true, default-features = true }
 aya = { workspace = true }
@@ -37,8 +37,8 @@ aya-build = { workspace = true }
 # Finally note that *any* usage of `artifact = ...` in *any* Cargo.toml in the workspace breaks
 # workflows with stable cargo; stable cargo outright refuses to load manifests that use unstable
 # features.
-xdp-udp-server-ebpf = { path = "../xdp-udp-server-ebpf" }
+xdp-echo-server-ebpf = { path = "../xdp-echo-server-ebpf" }
 
 [[bin]]
-name = "xdp-udp-server"
+name = "xdp-echo-server"
 path = "src/main.rs"

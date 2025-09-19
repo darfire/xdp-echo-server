@@ -1,15 +1,15 @@
 [workspace]
 resolver = "2"
 members = [
-    "xdp-udp-server",
-    "xdp-udp-server-common",
-    "xdp-udp-server-ebpf",
+    "xdp-echo-server",
+    "xdp-echo-server-common",
+    "xdp-echo-server-ebpf",
     "client",
     "userspace-server",
 ]
 default-members = [
-  "xdp-udp-server",
-  "xdp-udp-server-common",
+  "xdp-echo-server",
+  "xdp-echo-server-common",
   "client",
   "userspace-server",
 ]
@@ -36,6 +36,6 @@ log = { version = "0.4.22", default-features = false }
 tokio = { version = "1.40.0", default-features = false }
 which = { version = "6.0.0", default-features = false }
 
-[profile.release.package.xdp-udp-server-ebpf]
+[profile.release.package.xdp-echo-server-ebpf]
 debug = 2
 codegen-units = 1

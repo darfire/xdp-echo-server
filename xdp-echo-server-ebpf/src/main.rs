@@ -43,14 +43,14 @@ fn ptr_at_mut<T>(ctx: &XdpContext, offset: usize) -> Option<*mut T> {
 }
 
 #[xdp]
-pub fn xdp_udp_server(ctx: XdpContext) -> u32 {
-    match try_xdp_udp_server(ctx) {
+pub fn xdp_echo_server(ctx: XdpContext) -> u32 {
+    match try_xdp_echo_server(ctx) {
         Ok(ret) => ret,
         Err(_) => xdp_action::XDP_ABORTED,
     }
 }
 
-fn try_xdp_udp_server(ctx: XdpContext) -> Result<u32, u32> {
+fn try_xdp_echo_server(ctx: XdpContext) -> Result<u32, u32> {
     info!(&ctx, "received a packet");
 
     let eth = ptr_at::<ethhdr>(&ctx, 0).ok_or(xdp_action::XDP_PASS)?;

@@ -1,5 +1,5 @@
 [package]
-name = "xdp-udp-server-common"
+name = "xdp-echo-server-common"
 version = "0.1.0"
 edition.workspace = true
 
