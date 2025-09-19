@@ -1,0 +1,17 @@
+[package]
+name = "xdp-udp-server-ebpf"
+version = "0.1.0"
+edition.workspace = true
+
+[dependencies]
+xdp-udp-server-common = { path = "../xdp-udp-server-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "xdp-udp-server"
+path = "src/main.rs"
