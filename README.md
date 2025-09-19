@@ -9,34 +9,45 @@
 1. (if cross-compiling) C toolchain: (e.g.) [`brew install filosottile/musl-cross/musl-cross`](https://github.com/FiloSottile/homebrew-musl-cross) (on macOS)
 1. bpf-linker: `cargo install bpf-linker` (`--no-default-features` on macOS)
 
+## Components
+
+In order to compare userspace and xdp serving, 3 components have been implemented:
+* an UDP client
+* an XDP server
+* a Userspace server
+
+All components have been implemented with rust tools: rust-aya, rust-tokio, etc.
+
 ## Build & Run
 
 Use `cargo build`, `cargo check`, etc. as normal. Run your program with:
 
 ```shell
-cargo run --release --config 'target."cfg(all())".runner="sudo -E"'
+cargo run --release --config 'target."cfg(all())".runner="sudo -E"' --bin <executable>
+```
+
+For the XDP server:
+```shell
+cargo run --release --config 'target."cfg(all())".runner="sudo -E"' --bin xdp-echo-server
+```
+
+For the Userspace server:
+```shell
+cargo run --release --config 'target."cfg(all())".runner="sudo -E"' --bin userspace-server
+```
+
+For the UDP client, saving the report to a CSV file:
+```shell
+cargo run --release --config 'target."cfg(all())".runner="sudo -E"' --bin client --output data.csv
 ```
 
 Cargo build scripts are used to automatically build the eBPF correctly and include it in the
 program.
 
-## Cross-compiling on macOS
-
-Cross compilation should work on both Intel and Apple Silicon Macs.
-
-```shell
-CC=${ARCH}-linux-musl-gcc cargo build --package xdp-echo-server --release \
-  --target=${ARCH}-unknown-linux-musl \
-  --config=target.${ARCH}-unknown-linux-musl.linker=\"${ARCH}-linux-musl-gcc\"
-```
-The cross-compiled program `target/${ARCH}-unknown-linux-musl/release/xdp-echo-server` can be
-copied to a Linux server or VM and run there.
-
 ## License
 
 With the exception of eBPF code, xdp-echo-server is distributed under the terms
-of either the [MIT license] or the [Apache License] (version 2.0), at your
-option.
+of either the [MIT license] .
 
 Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in this crate by you, as defined in the Apache-2.0 license, shall
@@ -51,7 +62,3 @@ option.
 Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in this project by you, as defined in the GPL-2 license, shall be
 dual licensed as above, without any additional terms or conditions.
-
-[Apache license]: LICENSE-APACHE
-[MIT license]: LICENSE-MIT
-[GNU General Public License, Version 2]: LICENSE-GPL2
